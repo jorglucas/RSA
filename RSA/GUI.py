@@ -1,57 +1,89 @@
-# -*- coding: utf-8 -*-
-
-#importa toda biblioteca do Tkinter
 from tkinter import *
+from tkinter import ttk
+from tkinter import scrolledtext
+from random import randint
+
+window = Tk()
+window.geometry("300x300+500+200")
+window.resizable(0, 0)
+window.title("RSA")
+window.iconbitmap("icon.ico")
+
+num1 = randint(28, 999999)
+num2 = randint(28, 999999)
+
+def cripto():
+    btn3.forget()
+    scroll['state'] = "disable"
+    lb2.pack(side = BOTTOM)
+
+def chaves():
+    a = e1.get()
+    b = e2.get()
+    e1.forget()
+    e2.forget()
+    lb2.forget()
+    scroll['state'] = "normal"
+    btn4.forget()
+    btn3.pack(side=BOTTOM, padx=5, expand=1)
+
+def gerar():
+    p.pack(pady = 15)
+    q.pack(pady = 15)
+    scroll.focus()
+    lb2.forget()
+    e1.forget()
+    e2.forget()
+    btn4.forget()
+    btn3.pack(side=BOTTOM, padx=5, expand=1)
+    p['text'] = "P", num1
+    q['text'] = "Q", num2
+    scroll['state'] = "normal"
+
+def inserir():
+    lb2.forget()
+    p.forget()
+    q.forget()
+    e1.pack()
+    e2.pack()
+    btn3.forget()
+    scroll['state'] = "disable"
+    btn4.pack(pady = 5)
 
 
-#função pra capturar o texto digitado
-def feito():                       
-    l3['text'] = i1.get()           #método para pegar o texto
-    l3['fg'] = "green"              #cor do texto
-    i1.delete(0, END)               #deletar o texto da entrada de texto
-    
-    
-#Cria a janela principal
-window_p = Tk()             
+tab_control = ttk.Notebook(window)
+cript = ttk.Frame(tab_control)
+dcript = ttk.Frame(tab_control)
 
-# Titulo da janela
-window_p.title("RSA Encrypt/Decrypt")
+tab_control.add(cript,text="Criptografar")
 
-# Dimensão da janela e distancia da borda superior e lateral esquerda
-window_p.geometry("800x600+200+200")
+tab_control.add(dcript,text="Descriptografar")
+tab_control.pack(expand=1, fill= BOTH)
 
-# Icone da janela
-window_p.wm_iconbitmap('icon.ico')
+frametop = Frame(cript)
+framebottom = Frame(cript)
+frameleft = Frame(frametop)
+frameright = Frame(frametop)
 
-# "Variável" que recebe o método PhotoImage e salva o arquivo dentro de si
-foto = PhotoImage(file = "image.png") 
+scroll = scrolledtext.ScrolledText(cript,width=40,height=8, state = "disable")
+btn1 = Button(frameleft, text="Gerar Chave Pública", command = gerar)
+btn2 = Button(frameright, text="Inserir Chave Manual", command = inserir)
+btn3 = Button(framebottom, text="Criptografar Mensagem", command = cripto)
+btn4 = Button(cript, text = "Verificar", command = chaves)
+lb2 = Label(framebottom, text = "Mensagem Criptografada")
 
-# Label que recebe a imagem da "variável" foto
-imag = Label(window_p, image = foto) 
+frametop.pack(side=TOP, expand=1)
+framebottom.pack(side=BOTTOM, expand=1)
+frameleft.pack(side=LEFT, expand=1)
+frameright.pack(side=RIGHT, expand=1)
 
-# Label de texto   
-l1 = Label(window_p, text = "Digite seu texto abaixo",pady = 15)             
+btn1.pack(side=TOP, padx=5, pady = 3, expand=1)
+btn2.pack(side=TOP, padx=5, pady = 3, expand=1)
+scroll.pack(side=BOTTOM, padx=5, expand=1)
 
-# Entrada de texto
-i1 = Entry(window_p) 
+p = Label(frameleft)
+q = Label(frameright)
+e1 = Entry(cript)
+e2 = Entry(cript)
 
-# Botão Criptografar
-b1 = Button(window_p, text = "Criptografar", command = feito) 
-
-# Label que mostra qual texto foi digitado em i1
-l3 = Label(window_p) 
-
-# CheckButton só de teste
-check1 = Checkbutton(window_p, text = "Teste", activeforeground = "green") 
-
-# Empacotamento dos widgets segundo a oredem que aparecem
-imag.pack() 
-l1.pack()
-i1.pack()
-b1.pack()
-l3.pack()
-check1.pack()
-
-
-#Metodo para exibir a janela e todos widgets
-window_p.mainloop()
+window.mainloop()
