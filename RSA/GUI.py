@@ -1,89 +1,107 @@
+## IMPORTAR BIBLIOTECAS E INSTANCIAS DO TKINTER
 from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
 from random import randint
 
+###GERAR OS "PRIMOS" (SÓ PRA EXEMPLO)
+num1 = randint(28, 999999)
+num2 = randint(28, 999999)
+
+##FUNÇÃO GERAR CHAVE
+def descriptografar():
+    tab_control.select(dcript)
+    btn1.forget()
+    btn2.forget()
+
+def criptografar():
+    lb1.pack(side = TOP, expand = 1, pady = 40, fill = BOTH)
+    frame_top_cript.forget() 
+    frame_bottom_cript.forget() 
+    lb3.pack(side = TOP, expand = 1, pady = 40, fill = BOTH)
+    btn6.pack(side = BOTTOM)
+
+def gerar_chave():
+    frame_tleft_key.forget()
+    frame_tright_key.forget()
+    btn1.forget()
+    btn2.forget()
+    lb1.pack(side = TOP, expand = 1, pady = 40, fill = BOTH)
+    btn3.pack(side = BOTTOM, expand = 1, pady = 30)
+
+def inserir():
+    frame_tleft_key.forget()
+    frame_tright_key.forget()
+    btn1.forget()
+    btn2.forget()
+    e1.pack(side = TOP, expand = 1, pady = 40)
+    e2.pack(side = TOP, expand = 1, pady = 40)
+    btn4.pack(side = BOTTOM)
+
+def prosseguir():
+    e1.forget()
+    e2.forget()
+    btn4.forget()
+    btn3.pack(side = BOTTOM, expand = 1, pady = 30)
+    btn5.pack(side=TOP, padx=10, pady = 20, expand=1)
+    lb1.pack(side = TOP, expand = 1)
+    tab_control.select(cript)
+    scroll['state'] = "normal"
+    scroll.focus()
+
+##CONFIGURAÇÕES DO FORMATO A JANELA
 window = Tk()
 window.geometry("300x300+500+200")
 window.resizable(0, 0)
 window.title("RSA")
 window.iconbitmap("icon.ico")
 
-num1 = randint(28, 999999)
-num2 = randint(28, 999999)
-
-def cripto():
-    btn3.forget()
-    scroll['state'] = "disable"
-    lb2.pack(side = BOTTOM)
-
-def chaves():
-    a = e1.get()
-    b = e2.get()
-    e1.forget()
-    e2.forget()
-    lb2.forget()
-    scroll['state'] = "normal"
-    btn4.forget()
-    btn3.pack(side=BOTTOM, padx=5, expand=1)
-
-def gerar():
-    p.pack(pady = 15)
-    q.pack(pady = 15)
-    scroll.focus()
-    lb2.forget()
-    e1.forget()
-    e2.forget()
-    btn4.forget()
-    btn3.pack(side=BOTTOM, padx=5, expand=1)
-    p['text'] = "P", num1
-    q['text'] = "Q", num2
-    scroll['state'] = "normal"
-
-def inserir():
-    lb2.forget()
-    p.forget()
-    q.forget()
-    e1.pack()
-    e2.pack()
-    btn3.forget()
-    scroll['state'] = "disable"
-    btn4.pack(pady = 5)
-
-
+##CRIAÇÃO E CONFIGURAÇÃO DAS ABAS
 tab_control = ttk.Notebook(window)
+key = ttk.Frame(tab_control)
 cript = ttk.Frame(tab_control)
 dcript = ttk.Frame(tab_control)
-
+tab_control.add(key,text="Gerar chave")
 tab_control.add(cript,text="Criptografar")
-
 tab_control.add(dcript,text="Descriptografar")
 tab_control.pack(expand=1, fill= BOTH)
 
-frametop = Frame(cript)
-framebottom = Frame(cript)
-frameleft = Frame(frametop)
-frameright = Frame(frametop)
+#FRAMES DA ABA DE GERAR CHAVE COM OS WIDGTES
+frame_top_key = Frame(key)
+frame_bottom_key = Frame(key)
 
-scroll = scrolledtext.ScrolledText(cript,width=40,height=8, state = "disable")
-btn1 = Button(frameleft, text="Gerar Chave Pública", command = gerar)
-btn2 = Button(frameright, text="Inserir Chave Manual", command = inserir)
-btn3 = Button(framebottom, text="Criptografar Mensagem", command = cripto)
-btn4 = Button(cript, text = "Verificar", command = chaves)
-lb2 = Label(framebottom, text = "Mensagem Criptografada")
+frame_tleft_key = Frame(frame_top_key)
+frame_tright_key = Frame(frame_top_key)
 
-frametop.pack(side=TOP, expand=1)
-framebottom.pack(side=BOTTOM, expand=1)
-frameleft.pack(side=LEFT, expand=1)
-frameright.pack(side=RIGHT, expand=1)
+btn1 = Button(frame_tleft_key, text="Gerar Chave", command = gerar_chave)
+btn2 = Button(frame_tright_key, text="Inserir Chave", command = inserir)
+lb1 = Label(frame_top_key, text = "Suas chaves foram validadas!\n\nO arquivo key.txt foi criado no diretório onde\nestá esse executável. Prossiga com a criptografia\n da sua mensagem clicando abaixo.")
+e1 = Entry(frame_top_key)
+e2 = Entry(frame_top_key)
+btn3 = Button(frame_top_key, text="Prosseguir", command = prosseguir)
+btn4 = Button(frame_top_key, text="Validar", command = prosseguir)
 
-btn1.pack(side=TOP, padx=5, pady = 3, expand=1)
-btn2.pack(side=TOP, padx=5, pady = 3, expand=1)
-scroll.pack(side=BOTTOM, padx=5, expand=1)
+frame_top_key.pack(side=TOP, expand=1)
+frame_tleft_key.pack(side=LEFT, expand=1)
+frame_tright_key.pack(side=RIGHT, expand=1)
 
-p = Label(frameleft)
-q = Label(frameright)
-e1 = Entry(cript)
-e2 = Entry(cript)
+btn1.pack(side=LEFT, padx=10, pady = 3, expand=1)
+btn2.pack(side=RIGHT, padx=10, pady = 3, expand=1)
+
+
+#FRAMES DA ABA DE CRIPTOGRAFAR COM OS WIDGTES
+frame_cript = Frame(cript)
+frame_top_cript = Frame(frame_cript)
+frame_bottom_cript = Frame(frame_cript)
+lb2 = Label(frame_top_cript, text = "Digite sua mensagem abaixo para ser criptografada")
+scroll = scrolledtext.ScrolledText(frame_top_cript,width=40,height=8, state = "disable")
+btn5 = Button(frame_bottom_cript, text="Criptografar", command = criptografar)
+frame_cript.pack(side = TOP, expand = 1)
+frame_top_cript.pack(side = TOP, expand = 1)
+frame_bottom_cript.pack(side = BOTTOM, expand = 1)
+lb2.pack(side = TOP, expand = 1, pady = 10)
+scroll.pack(side = TOP, padx=10, pady = 10, expand = 1)
+lb3 = Label(frame_cript, text = "Sua mensagem já foi criptografada e o\narquivo msg.txt foi gerado no diretório onde\nestá este executável")
+btn6 = Button(frame_cript, text="Descriptografar", command = descriptografar)
 
 window.mainloop()
