@@ -150,7 +150,7 @@ def create_archive(n, e, p, q):
     lb1.pack(side = TOP, expand = 1, pady = 40, fill = BOTH)
     btn3.pack(side = BOTTOM, expand = 1, pady = 30)
     chave_publica = ("Valores da chave publica:\nn = %d e = %d\n" %(n,e))
-    chave_privada = ("Valores da chave privada:\np = %d q = %d\n" %(p, q))
+    chave_privada = ("Valores da chave privada:\ne = %d n = %d p = %d q = %d\n" %(e, n, p, q))
     key = open("public_key.txt", "w")
     key_p = open("private_key.txt", "w")
     key_p.write(chave_privada)
@@ -279,7 +279,7 @@ def encript():
 
     #manipulando arquivo de saida
     if error == -1:
-        messagebox.showerror("Erro", "Caractere inválido")
+        messagebox.showerror("Erro", "Caractere inválido.\nNão use acentos nem pontuações.")
     else:
         arquivo = open("encripted.txt", "w") #gerando arquivo txt que guardará o texto descriptografado
         arquivo.write(criptografado) #escrevendo a mensagem criptografada no arquivo
@@ -354,7 +354,7 @@ btn2.pack(side=RIGHT, padx=10, pady = 3, expand=1)
 ##FRAMES E WIDGETS DA ABA DE CRIPTOGRAFAR
 frame_top_cript = Frame(cript)
 frame_bottom_cript = Frame(cript)
-lb2 = Label(frame_top_cript, text = "Insira 'N, 'E' e sua mensagem\n para ser criptografada")
+lb2 = Label(frame_top_cript, text = "Insira 'N, 'E' e sua mensagem para ser criptografada.\nObs.: Sem pontos nem acentos")
 lb2.pack(side = TOP, expand = 1, pady = 10)
 e7 = Entry(frame_top_cript)
 e8 = Entry(frame_top_cript)
