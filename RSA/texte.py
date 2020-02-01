@@ -139,9 +139,16 @@ def generate_key():
     frame_tright_key.forget()
     btn1.forget()
     btn2.forget()
+    create_archive(n, e, p, q)
+
+def create_archive(n, e, p, q):
+    lb5.forget()
+    e1.forget()
+    e2.forget()
+    e6.forget()
+    btn4.forget()
     lb1.pack(side = TOP, expand = 1, pady = 40, fill = BOTH)
     btn3.pack(side = BOTTOM, expand = 1, pady = 30)
-
     chave_publica = ("Valores da chave publica:\nn = %d e = %d\n" %(n,e))
     chave_privada = ("Valores da chave privada:\np = %d q = %d\n" %(p, q))
     key = open("public_key.txt", "w")
@@ -175,7 +182,8 @@ def validate_prime():
     if euclides(tot_n, e) !=1:
         messagebox.showerror("Erro", "Esse número não é um co-primo")
         insert_key()
-    
+    else:
+        create_archive(n, e, p, q)
 
 def insert_key():
     e1.focus()
@@ -333,7 +341,7 @@ e1 = Entry(frame_top_key)
 e2 = Entry(frame_top_key)
 e6 = Entry(frame_top_key)
 btn3 = Button(frame_top_key, text="Prosseguir", command = prosseguir)
-btn4 = Button(frame_top_key, text="Validar", command = prosseguir)
+btn4 = Button(frame_top_key, text="Validar", command = validate_prime)
 
 frame_top_key.pack(side=TOP, expand=1)
 frame_tleft_key.pack(side=LEFT, expand=1)
