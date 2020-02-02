@@ -160,7 +160,7 @@ def create_archive(n, e, p, q):
 
 ## FUNÇÃO DO BOTÃO VALIDAR
 def validate_prime():
-  #PEGA OS VALORES INSERIDOS PELOS USUÁRIO E CONVETE PARA INTEIRO
+    #PEGA OS VALORES INSERIDOS PELOS USUÁRIO E CONVERTE PARA INTEIRO
     p = int(e1.get())    
     q = int(e2.get())
     e = int(e6.get())
@@ -240,7 +240,8 @@ def decript():
         desc = desc + dicionario2[y%n] #concatenando a mensagem com o caracter que acabou de ser descriptografada
 
     #manipulacao do arquivo de saida
-    arquivo_descript = open("decripted.txt", "w")#criando arquivo .txt com o nome provido pelo usuario
+    desc = desc.upper()
+    arquivo_descript = open("decripted.txt", "w") #criando arquivo .txt
     arquivo_descript.write(desc)#escrevendo mensagem descriptografada no arquivo
     arquivo_descript.close() #fechando o arquivo
 
@@ -277,7 +278,7 @@ def encript():
         convert = int_bin(e, "") #convertendo o valor de e (o expoente da potenciacao) em binario
         generate_list_int(convert, list_int_pow) #armazenando em "list_int pow" os valores na base 2  que decompoem o valor e
 
-        y = exp_mod_rap( list_int_pow, x, n, 1, 0) #exponenciacao modular rapida para criptografar a mensagem
+        y = exp_mod_rap(list_int_pow, x, n, 1, 0) #exponenciacao modular rapida para criptografar a mensagem
             
         criptografado = criptografado + str(y%n) +" "#gerando string que contem a mensagem criptografada
         i+=1
@@ -288,7 +289,7 @@ def encript():
     else:
         arquivo = open("encripted.txt", "w") #gerando arquivo txt que guardará o texto descriptografado
         arquivo.write(criptografado) #escrevendo a mensagem criptografada no arquivo
-        
+        arquivo.close() #fechando o arquivo
         #RETIRA TODOS WIDGETS DA ABA CRIPTOGRAFAR 
         lb2.forget()
         e7.forget()
